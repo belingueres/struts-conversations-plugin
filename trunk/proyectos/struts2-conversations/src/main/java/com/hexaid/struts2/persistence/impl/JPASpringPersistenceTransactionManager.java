@@ -1,11 +1,8 @@
 package com.hexaid.struts2.persistence.impl;
 
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.FlushModeType;
-import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +12,10 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.hexaid.struts2.conversations.Conversation;
 import com.hexaid.struts2.persistence.PersistenceTransactionManager;
+import com.opensymphony.xwork2.ObjectFactory;
 import com.opensymphony.xwork2.inject.Inject;
 
 /**
@@ -40,20 +36,18 @@ public class JPASpringPersistenceTransactionManager implements
 	private EntityManagerFactory entityManagerFactory;
 	private TransactionTemplate transactionTemplate;
 	
-	private final ServletContext servletContext;
+	private final ObjectFactory objectFactory;
 
 	@Inject
-	public JPASpringPersistenceTransactionManager(@Inject ServletContext servletContext) {
-		this.servletContext = servletContext;
+	public JPASpringPersistenceTransactionManager(@Inject ObjectFactory objectFactory) {
+		this.objectFactory = objectFactory;
 	}
 
 	@Override
 	public void init() {
 		try {
 			// inject the JPA Transaction Manager
-			final WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-			Map beansOfJpaTransactionManager = context.getBeansOfType(JpaTransactionManager.class);
-			final JpaTransactionManager transactionManager = (JpaTransactionManager) beansOfJpaTransactionManager.values().iterator().next();
+			final JpaTransactionManager transactionManager = (JpaTransactionManager) objectFactory.buildBean(JpaTransactionManager.class, null);
 
 			this.entityManagerFactory = transactionManager.getEntityManagerFactory();
 			this.transactionTemplate = new TransactionTemplate(transactionManager);
