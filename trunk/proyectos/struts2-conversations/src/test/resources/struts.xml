@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+  <package name="testpkg" extends="struts-default">
+    <interceptors>
+      <interceptor class="com.hexaid.struts2.interceptor.BijectionInterceptor" name="bijection"/>
+      <interceptor-stack name="testStack">
+        <interceptor-ref name="defaultStack" />
+        <interceptor-ref name="bijection" />
+      </interceptor-stack>
+    </interceptors>
+    <default-interceptor-ref name="testStack" />
+
+    <action name="test" class="com.hexaid.struts2.interceptor.TestInOutAction">
+      <result>/x.jsp</result>
+    </action>
+
+    <action name="testAgain" class="com.hexaid.struts2.interceptor.TestInOutAction" method="executeAgain">
+      <result>/x.jsp</result>
+    </action>
+
+    <action name="testMethods" class="com.hexaid.struts2.interceptor.TestInOutActionWithMethods">
+      <result>/x.jsp</result>
+    </action>
+
+    <action name="testAgainMethods" class="com.hexaid.struts2.interceptor.TestInOutActionWithMethods" method="executeAgain">
+      <result>/x.jsp</result>
+    </action>
+  </package>
+</struts>

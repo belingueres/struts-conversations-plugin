@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+  <!-- Default timeout to 60 seconds -->
+  <constant name="com.hexaid.struts2.conversation.expiration.maxInactiveInterval" value="60" />
+  
+  <package name="testpkg" extends="conversationPackage">
+
+    <action name="test" class="com.hexaid.struts2.interceptor.TestConversationAction">
+      <result>/x.jsp</result>
+    </action>
+
+    <action name="testWithBeginAnnotation" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">y.jsp</result>
+    </action>
+
+    <action name="testWithBeginAnnotationInitMethod" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation" 
+      method="execWithInit">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">y.jsp</result>
+    </action>
+
+    <action name="testWithBeginAnnotationInitMethodNoExist" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation" 
+      method="execWithInitNoExist">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">y.jsp</result>
+    </action>
+    
+    <action name="testOverrideInterceptorParam" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation">
+      <interceptor-ref name="abstractConversationSupportStack">
+        <param name="conversation.defaultConversationAttr">NONE</param>
+      </interceptor-ref>
+      <result>/x.jsp</result>
+    </action>
+    
+    <action name="endActionSuccess" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="endActionSuccess">
+      <result name="success">/x.jsp</result>
+    </action>
+
+    <action name="endActionInput" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="endActionInput">
+      <result name="input">/x.jsp</result>
+    </action>
+
+    <action name="endActionSuccessAfter" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="endActionSuccessAfter">
+      <result name="success">/x.jsp</result>
+    </action>
+
+    <action name="endActionInputAfter" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="endActionInputAfter">
+      <result name="input">/x.jsp</result>
+    </action>
+
+    <action name="endActionWithException" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="endActionWithException">
+      <result name="error">/x.jsp</result>
+      <exception-mapping result="error" exception="java.sql.SQLException" />
+    </action>
+    
+    <action name="mandatoryAction" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="mandatoryAction">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+    </action>
+
+    <action name="endActionWithMessage" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="endActionWithMessage">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+    </action>
+
+    <action name="executeNoConversation" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="executeNoConversation">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+    </action>
+    
+    <action name="testEndAnnotationWithCommitResult" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="testEndAnnotationWithCommitResult">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+      <result name="commit">/z.jsp</result>
+    </action>
+
+    <action name="testEndAnnotationWithCommitResultNotEnded" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="testEndAnnotationWithCommitResultNotEnded">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+      <result name="commit">/z.jsp</result>
+    </action>
+    
+    <action name="testConversationWithFixedNaturalId" class="com.hexaid.struts2.interceptor.TestNaturalConversationAction">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+    </action>
+
+    <action name="testConversationWithNaturalIdFromInitializationMethod" class="com.hexaid.struts2.interceptor.TestNaturalConversationAction"
+      method="executeWithInit">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+    </action>
+
+    <action name="testConversationWithNaturalIdNull" class="com.hexaid.struts2.interceptor.TestNaturalConversationAction"
+      method="executeWithNaturalIdNull">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+    </action>
+  </package>
+</struts>
