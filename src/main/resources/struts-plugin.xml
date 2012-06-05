@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+  <bean type="com.hexaid.struts2.conversations.ConversationFactory" name="default"
+    class="com.hexaid.struts2.conversations.impl.DefaultConversationFactory" />
+
+  <!-- Standard Persistent Transaction Managers -->
+  <bean type="com.hexaid.struts2.persistence.PersistenceTransactionManager" name="jpa-spring"
+    class="com.hexaid.struts2.persistence.impl.JPASpringPersistenceTransactionManager" />
+  <bean type="com.hexaid.struts2.persistence.PersistenceTransactionManager" name="default"
+    class="com.hexaid.struts2.persistence.impl.PersistenceTransactionManagerAdapter" />
+    
+  <!-- Standard Conversation Expiration Policies -->
+  <bean type="com.hexaid.struts2.expiration.ConversationExpirationPolicy" name="fixedtime"
+    class="com.hexaid.struts2.expiration.impl.FixedTimeConversationExpirationPolicy" />
+  <bean type="com.hexaid.struts2.expiration.ConversationExpirationPolicy" name="foreback"
+    class="com.hexaid.struts2.expiration.impl.ForeBackConversationExpirationPolicy" />
+  <bean type="com.hexaid.struts2.expiration.ConversationExpirationPolicy" name="perview"
+    class="com.hexaid.struts2.expiration.impl.PerViewConversationExpirationPolicy" />
+    
+  <!-- Standard bijectors -->
+  <bean type="com.hexaid.struts2.bijection.Bijector" name="field" 
+    class="com.hexaid.struts2.bijection.FieldBijector" />
+  <bean type="com.hexaid.struts2.bijection.Bijector" name="method" 
+    class="com.hexaid.struts2.bijection.MethodBijector" />
+
+  <!-- default conversation factory -->
+  <constant name="com.hexaid.struts2.conversation.factory" value="default" />
+
+  <!-- default conversation expiration policy -->
+  <constant name="com.hexaid.struts2.conversation.expiration.policy" value="foreback" />
+
+  <!-- default conversation timeout of 300 seconds (5 minutes) -->
+  <constant name="com.hexaid.struts2.conversation.expiration.maxInactiveInterval" value="300" />
+
+  <package name="conversationPackage" extends="struts-default">
+  
+    <!-- Redefine Conversation-aware result types -->
+    <result-types>
+      <result-type name="dispatcher" class="com.hexaid.struts2.result.ServletDispatcherConversationResult" default="true" />
+      <result-type name="redirect" class="com.hexaid.struts2.result.ServletRedirectConversationResult" />
+      <result-type name="redirectAction" class="com.hexaid.struts2.result.ServletActionRedirectConversationResult" />
+      <!-- Declare it in your application if you are using the struts-tiles-plugin -->
+      <!--
+      <result-type name="tiles" class="com.hexaid.struts2.result.TilesConversationResult" />
+      -->      
+    </result-types>
+    
+    <interceptors>
+      <interceptor name="conversation"
+        class="com.hexaid.struts2.interceptor.ConversationInterceptor" />
+      <interceptor name="bijection"
+        class="com.hexaid.struts2.interceptor.BijectionInterceptor" />
+
+      <!-- 
+      Generic interceptor stack supporting conversations and bijection.
+      It's a 'paramsPrepareParamsStack' with the addition of conversation and
+      bijection interceptors BEFORE validation and BEFORE params
+      -->
+      <interceptor-stack name="abstractConversationSupportStack">
+        <interceptor-ref name="exception"/>
+        <interceptor-ref name="alias"/>
+        <interceptor-ref name="i18n"/>
+        <interceptor-ref name="checkbox"/>
+        <interceptor-ref name="multiselect"/>
+        <interceptor-ref name="params">
+            <param name="excludeParams">dojo\..*,^struts\..*</param>
+        </interceptor-ref>
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="prepare"/>
+        <interceptor-ref name="chain"/>
+        <interceptor-ref name="modelDriven"/>
+        <interceptor-ref name="fileUpload"/>
+        <interceptor-ref name="staticParams"/>
+        <interceptor-ref name="actionMappingParams"/>
+
+        <interceptor-ref name="conversation" />
+        <interceptor-ref name="bijection" />
+
+        <interceptor-ref name="params">
+            <param name="excludeParams">dojo\..*,^struts\..*</param>
+        </interceptor-ref>
+        <interceptor-ref name="conversionError"/>
+        <interceptor-ref name="validation">
+            <param name="excludeMethods">input,back,cancel,browse</param>
+        </interceptor-ref>
+        <interceptor-ref name="workflow">
+            <param name="excludeMethods">input,back,cancel,browse</param>
+        </interceptor-ref>
+      </interceptor-stack>
+    </interceptors>
+
+    <default-interceptor-ref name="abstractConversationSupportStack" />
+  </package>
+</struts>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+  <!-- post-processors for all standard config annotations -->
+  <context:annotation-config/>
+
+  <!--  INFRAESTRUCTURA  -->
+ 
+  <!-- Deploys a in-memory datasource -->
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver" />
+    <property name="url" value="jdbc:hsqldb:mem:testdb" />
+    <property name="username" value="sa" />
+    <property name="password" value="" />
+  </bean>
+ 
+   <!-- Creates a EntityManagerFactory for use with the Hibernate JPA provider and a simple in-memory data source populated with test data -->
+   <bean id="entityManagerFactory"
+       class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+       <property name="dataSource" ref="dataSource" />
+       <property name="jpaVendorAdapter">
+           <bean
+               class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+               <property name="database" value="HSQL" />
+               <property name="showSql" value="true" />
+           </bean>
+       </property>
+   </bean>
+
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory"/>
+  </bean>
+  
+  <bean id="userDAO" class="com.hexaid.struts2.persistence.impl.TestJPASpringPersistenceTransactionManager.UserDAO" />
+  
+</beans>

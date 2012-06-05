@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+  <constant name="com.hexaid.struts2.conversation.expiration.policy" value="fixedtime" />
+  <!-- Default timeout to 60 seconds -->
+  <constant name="com.hexaid.struts2.conversation.expiration.maxInactiveInterval" value="60" />
+  
+  <package name="testpkg" extends="conversationPackage">
+    <action name="beginConvWithExpiration" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+    </action>
+
+    <action name="mandatoryAction" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="mandatoryAction">
+      <result name="success">/x.jsp</result>
+      <result name="conversation_not_found">/y.jsp</result>
+    </action>
+  </package>
+</struts>
