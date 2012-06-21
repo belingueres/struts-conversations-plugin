@@ -30,8 +30,8 @@ public @interface Out {
 	ScopeType scope() default ScopeType.CONVERSATION;
 
 	/**
-	 * Specifies if the injected value is required to be
-	 * not null. Default to true.
+	 * Specifies if the outjected value is required to be
+	 * not null. Default to false.
 	 */
 	boolean required() default false;
 }
