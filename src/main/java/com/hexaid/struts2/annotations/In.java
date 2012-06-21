@@ -33,7 +33,7 @@ public @interface In {
 	
 	/**
 	 * Specifies if the injected value is required to be
-	 * not null. Default to true.
+	 * not null. Default to false.
 	 */
 	boolean required() default false;
 	
