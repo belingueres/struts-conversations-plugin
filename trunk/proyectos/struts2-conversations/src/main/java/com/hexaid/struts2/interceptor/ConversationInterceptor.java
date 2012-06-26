@@ -90,7 +90,7 @@ public class ConversationInterceptor extends AbstractInterceptor {
 
 		final String conversationId = request.getParameter(Conversation.CONVERSATION_ID_PARAM);
 
-		final ConversationAttributeType conversationAttr = getConversationAttribute(action, actionMethod, conversationId);
+		final ConversationAttributeType conversationAttr = getConversationAttribute(actionMethod, conversationId);
 
 		final boolean isActionWithConversationSupport = (conversationAttr != NONE);
 		
@@ -299,9 +299,7 @@ public class ConversationInterceptor extends AbstractInterceptor {
 		}
 	}
 	
-	private ConversationAttributeType getConversationAttribute(	final Object action,
-																final Method actionMethod,
-																final String conversationId) {
+    private ConversationAttributeType getConversationAttribute(final Method actionMethod, final String conversationId) {
 		// si tiene anotación @Begin, @End or @ConversationControl
 		final Begin begin = actionMethod.getAnnotation(Begin.class);
 		final End end = actionMethod.getAnnotation(End.class);
