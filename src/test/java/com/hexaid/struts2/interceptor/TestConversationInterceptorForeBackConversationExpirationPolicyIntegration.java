@@ -248,7 +248,7 @@ public class TestConversationInterceptorForeBackConversationExpirationPolicyInte
 			createActionProxy(null, "mandatoryAction", null);
 
 			String result4 = actionProxy.execute();
-			assertEquals(ConversationInterceptor.CONVERSATION_NOT_FOUND, result4);
+			assertEquals(ConversationInterceptor.DEFAULT_CONVERSATION_NOT_FOUND_RESULT, result4);
 
 			// the other conversation should remain, since the requested foreground 
 			// conversation did not exist

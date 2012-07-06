@@ -99,13 +99,31 @@ public class TestConversationInterceptor extends StrutsBaseTestCase {
 
 		try {
 			String result = actionProxy.execute();
-			assertEquals(ConversationInterceptor.CONVERSATION_NOT_FOUND, result);
+			assertEquals(ConversationInterceptor.DEFAULT_CONVERSATION_NOT_FOUND_RESULT, result);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("The action execution failed");
 		}
 	}
-	
+
+    /**
+     * Test execution of an action with a non existent mandatory conversation id
+     * but using a custom "conversationNotFoundResult" value
+     */
+    @Test
+    @Config(actionName="mandatoryActionCustomResult")
+    public void testConversationNoExistsWithCustomConversationNotFoundResult() {
+        request.addParameter(Conversation.CONVERSATION_ID_PARAM, "blablabla");
+
+        try {
+            String result = actionProxy.execute();
+            assertEquals("custom-noconversation-result", result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("The action execution failed");
+        }
+    }
+
 	/**
 	 * Test overriding the defaultConversationAttr interceptor parameter from struts.xml
 	 */
@@ -296,7 +314,7 @@ public class TestConversationInterceptor extends StrutsBaseTestCase {
 			createActionProxy(null, "mandatoryAction", null);
 			
 			String result3 = actionProxy.execute();
-			assertEquals(ConversationInterceptor.CONVERSATION_NOT_FOUND, result3);
+			assertEquals(ConversationInterceptor.DEFAULT_CONVERSATION_NOT_FOUND_RESULT, result3);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("The action execution failed");
