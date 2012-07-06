@@ -91,9 +91,7 @@ public class ConversationInterceptor extends AbstractInterceptor {
 
 		final ConversationAttributeType conversationAttr = getConversationAttribute(actionMethod, conversationId);
 
-		final boolean isActionWithConversationSupport = (conversationAttr != NONE);
-		
-		if (!isActionWithConversationSupport) {
+		if (conversationAttr == NONE) {
 			// process without conversation support
 			LOG.debug("Invoking action method {}() without support for conversation", methodName);
 			return invocation.invoke();
