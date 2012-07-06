@@ -8,14 +8,12 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.hexaid.struts2.common.ConversationAttributeType;
 import com.hexaid.struts2.conversations.Conversation;
 import com.hexaid.struts2.conversations.impl.ActionMessages;
 import com.hexaid.struts2.junit.Config;
 import com.hexaid.struts2.junit.StrutsBaseTestCase;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.config.entities.InterceptorMapping;
 import com.opensymphony.xwork2.interceptor.PreResultListener;
 
 @Config(file={"struts-plugin.xml", "struts-conversations.xml"})
@@ -123,53 +121,6 @@ public class TestConversationInterceptor extends StrutsBaseTestCase {
             fail("The action execution failed");
         }
     }
-
-	/**
-	 * Test overriding the defaultConversationAttr interceptor parameter from struts.xml
-	 */
-	@Test
-	public void testOverrideInterceptorParam() {
-		try {
-			String result = actionProxy.execute();
-
-			assertEquals(ActionSupport.SUCCESS, result);
-
-			for(final InterceptorMapping im : actionProxy.getConfig().getInterceptors()) {
-				if (im.getInterceptor() instanceof ConversationInterceptor) {
-					final ConversationInterceptor interceptor = (ConversationInterceptor) im.getInterceptor();
-					assertEquals(ConversationAttributeType.NONE, interceptor.getDefaultConversationAttr());
-					return;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("The action execution failed");
-		}
-	}
-
-	/**
-	 * Test NOT overriding the defaultConversationAttr interceptor parameter from struts.xml
-	 */
-	@Test
-	@Config(actionName="test")
-	public void testUseDefaultConversationAttribute() {
-		try {
-			String result = actionProxy.execute();
-
-			assertEquals(ActionSupport.SUCCESS, result);
-
-			for(final InterceptorMapping im : actionProxy.getConfig().getInterceptors()) {
-				if (im.getInterceptor() instanceof ConversationInterceptor) {
-					final ConversationInterceptor interceptor = (ConversationInterceptor) im.getInterceptor();
-					assertEquals(ConversationAttributeType.REQUIRED, interceptor.getDefaultConversationAttr());
-					return;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("The action execution failed");
-		}
-	}
 
 	/**
 	 * Test ending a conversation with @End(beforeRedirect=true)
