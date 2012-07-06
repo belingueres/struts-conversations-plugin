@@ -55,12 +55,6 @@ public class ConversationInterceptor extends AbstractInterceptor {
 
 	/**
 	 * Interceptor parameter:
-	 * if no default control specified for this interceptor use REQUIRED
-	 */
-	private ConversationAttributeType defaultConversationAttr = REQUIRED;
-	
-	/**
-	 * Interceptor parameter:
 	 * Specifies the PersistenceTransactionManager to be used. Default is "default".
 	 */
 	private String persistence = Container.DEFAULT_NAME;
@@ -370,14 +364,6 @@ public class ConversationInterceptor extends AbstractInterceptor {
 			return "execute";
 		}
 		return method; 
-	}
-
-	public ConversationAttributeType getDefaultConversationAttr() {
-		return defaultConversationAttr;
-	}
-
-	public void setDefaultConversationAttr(ConversationAttributeType defaultConversationAttr) {
-		this.defaultConversationAttr = defaultConversationAttr;
 	}
 
 	@Override
