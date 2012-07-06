@@ -43,8 +43,6 @@ public class ConversationInterceptor extends AbstractInterceptor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ConversationInterceptor.class);
 
-	public static final String CONVERSATION_CONTROL_PARAM = "conversationControl";
-
 	public static final String CONVERSATION_NOT_FOUND = "conversation_not_found";
 
 	private ConversationFactory conversationFactory;
