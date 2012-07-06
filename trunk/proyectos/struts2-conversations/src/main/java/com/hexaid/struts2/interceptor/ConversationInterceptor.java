@@ -43,7 +43,7 @@ public class ConversationInterceptor extends AbstractInterceptor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ConversationInterceptor.class);
 
-	public static final String CONVERSATION_NOT_FOUND = "conversation_not_found";
+	static final String DEFAULT_CONVERSATION_NOT_FOUND_RESULT = "conversation_not_found";
 
 	private ConversationFactory conversationFactory;
 	
@@ -64,7 +64,14 @@ public class ConversationInterceptor extends AbstractInterceptor {
 	 * Specifies the PersistenceTransactionManager to be used. Default is "default".
 	 */
 	private String persistence = Container.DEFAULT_NAME;
-	
+
+    /**
+     * Interceptor parameter:
+     * Specifies the action result to use when no conversation is found.
+     * Default is the constant DEFAULT_CONVERSATION_NOT_FOUND_RESULT.
+     */
+    private String conversationNotFoundResult = DEFAULT_CONVERSATION_NOT_FOUND_RESULT;
+
 	/**
 	 * Injected constant
 	 * Specifies the conversation expiration policy.
@@ -126,8 +133,8 @@ public class ConversationInterceptor extends AbstractInterceptor {
 	
 			if (conversationAttr == MANDATORY && (conversation == null || conversation.isEnded())) {
 				// was mandatory and conversation was not found =>
-				// result CONVERSATION_NOT_FOUND without calling the action
-				return CONVERSATION_NOT_FOUND;
+				// result in conversationNotFoundResult without calling the action
+				return conversationNotFoundResult;
 			}
 
 			try {
@@ -455,5 +462,13 @@ public class ConversationInterceptor extends AbstractInterceptor {
 	public void setConversationFactoryStr(String conversationFactoryStr) {
 		this.conversationFactoryStr = conversationFactoryStr;
 	}
+
+    public String getConversationNotFoundResult() {
+        return conversationNotFoundResult;
+    }
+  
+    public void setConversationNotFoundResult(String conversationNotFoundResult) {
+        this.conversationNotFoundResult = conversationNotFoundResult;
+    }
 
 }

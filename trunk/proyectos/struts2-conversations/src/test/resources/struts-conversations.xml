@@ -66,6 +66,15 @@
       <result name="conversation_not_found">/y.jsp</result>
     </action>
 
+    <action name="mandatoryActionCustomResult" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="mandatoryAction">
+      <interceptor-ref name="abstractConversationSupportStack">
+        <param name="conversation.conversationNotFoundResult">custom-noconversation-result</param>
+      </interceptor-ref>
+      <result name="success">/x.jsp</result>
+      <result name="custom-noconversation-result">/y.jsp</result>
+    </action>
+
     <action name="endActionWithMessage" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
       method="endActionWithMessage">
       <result name="success">/x.jsp</result>

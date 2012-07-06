@@ -96,7 +96,7 @@ public class TestConversationInterceptorFixedTimeConversationExpirationPolicyInt
 			createActionProxy(null, "mandatoryAction", null);
 			
 			String result2 = actionProxy.execute();
-			assertEquals(ConversationInterceptor.CONVERSATION_NOT_FOUND, result2);
+			assertEquals(ConversationInterceptor.DEFAULT_CONVERSATION_NOT_FOUND_RESULT, result2);
 			
 			// should not found
 			Conversation conversation2 = getAllConversationsMap().get(conversationId);
