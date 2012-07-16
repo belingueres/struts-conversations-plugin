@@ -100,11 +100,6 @@ public class JPASpringPersistenceTransactionManager implements
 	}
 
 	@Override
-	public void conversationEnded(Conversation conversation) {
-		// NOTHING
-	}
-
-	@Override
 	public void exceptionThrown(Conversation conversation, Exception exception) {
 		final EntityManager em = getEntityManager(conversation);
 		unbind(em);

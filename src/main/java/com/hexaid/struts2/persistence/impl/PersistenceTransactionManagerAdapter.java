@@ -48,14 +48,6 @@ public class PersistenceTransactionManagerAdapter implements
 	}
 
 	/* (non-Javadoc)
-	 * @see com.hexaid.struts2.persistence.PersistenceTransactionManager#conversationEnded(com.hexaid.struts2.conversations.Conversation)
-	 */
-	@Override
-	public void conversationEnded(Conversation conversation) {
-		// nothing
-	}
-
-	/* (non-Javadoc)
 	 * @see com.hexaid.struts2.persistence.PersistenceTransactionManager#exceptionThrown(com.hexaid.struts2.conversations.Conversation, java.lang.Exception)
 	 */
 	@Override

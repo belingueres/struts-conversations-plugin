@@ -18,8 +18,6 @@ public interface PersistenceTransactionManager {
 	
 	public void conversationEnding(final Conversation conversation, final boolean commit);
 
-	public void conversationEnded(final Conversation conversation);
-	
 	public void exceptionThrown(final Conversation conversation, final Exception exception);
 
 }
