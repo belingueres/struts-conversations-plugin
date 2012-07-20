@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 
 import com.hexaid.struts2.annotations.Begin;
-import com.hexaid.struts2.annotations.ConversationControl;
+import com.hexaid.struts2.annotations.ConversationAttribute;
 import com.hexaid.struts2.annotations.End;
 import com.hexaid.struts2.common.ConversationAttributeType;
 import com.hexaid.struts2.conversations.Conversation;
@@ -297,17 +297,17 @@ public class ConversationInterceptor extends AbstractInterceptor {
 	}
 	
     private ConversationAttributeType getConversationAttribute(final Method actionMethod, final String conversationId) {
-		// si tiene anotación @Begin, @End or @ConversationControl
+		// si tiene anotación @Begin, @End or @ConversationAttribute
 		final Begin begin = actionMethod.getAnnotation(Begin.class);
 		final End end = actionMethod.getAnnotation(End.class);
-		final ConversationControl conversationControl = actionMethod.getAnnotation(ConversationControl.class);
+		final ConversationAttribute conversationControl = actionMethod.getAnnotation(ConversationAttribute.class);
 		
 		if (begin != null && conversationControl != null) {
-			// @Begin and @ConversationControl, with or without @End
+			// @Begin and @ConversationAttribute, with or without @End
 			final ConversationAttributeType conversationAttribute = conversationControl.value();
 			if (conversationAttribute == NONE || conversationAttribute == SUPPORTS || conversationAttribute == MANDATORY) {
 				final String message = 
-						MessageFormatter.format("The action method {}() has declared the @Begin with @ConversationControl({})", 
+						MessageFormatter.format("The action method {}() has declared the @Begin with @ConversationAttribute({})", 
 								actionMethod.getName(), conversationAttribute.toString()).getMessage();
 				throw new IllegalStateException(message);
 			}
@@ -315,15 +315,15 @@ public class ConversationInterceptor extends AbstractInterceptor {
 			return conversationAttribute;
 		}
 		else if (begin != null && end != null && conversationControl == null) {
-			// @Begin, @End without @ConversationControl
+			// @Begin, @End without @ConversationAttribute
 			return REQUIRES_NEW;
 		}
 		else if (begin == null && end != null && conversationControl != null) {
-			// @End and @ConversationControl, without @Begin
+			// @End and @ConversationAttribute, without @Begin
 			final ConversationAttributeType conversationAttribute = conversationControl.value();
 			if (conversationAttribute != MANDATORY) {
 				final String message = 
-						MessageFormatter.format("The action method {}() has declared the @End annotation, but with @ConversationControl({})", 
+						MessageFormatter.format("The action method {}() has declared the @End annotation, but with @ConversationAttribute({})", 
 								actionMethod.getName(), conversationAttribute.toString()).getMessage();
 				throw new IllegalStateException(message);
 			}
@@ -339,7 +339,7 @@ public class ConversationInterceptor extends AbstractInterceptor {
 			return MANDATORY;
 		}
 		else if (begin == null && end == null && conversationControl != null) {
-			// @ConversationControl only
+			// @ConversationAttribute only
 			return conversationControl.value();
 		}
 		else if (!StringUtils.isEmpty(conversationId)) {

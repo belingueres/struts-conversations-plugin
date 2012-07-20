@@ -3,7 +3,7 @@ package com.hexaid.struts2.interceptor;
 import java.sql.SQLException;
 
 import com.hexaid.struts2.annotations.Begin;
-import com.hexaid.struts2.annotations.ConversationControl;
+import com.hexaid.struts2.annotations.ConversationAttribute;
 import com.hexaid.struts2.annotations.End;
 import com.hexaid.struts2.common.ConversationAttributeType;
 import com.opensymphony.xwork2.ActionSupport;
@@ -75,7 +75,7 @@ public class TestActionWithBeginAnnotation extends ActionSupport {
 		return SUCCESS;
 	}
 
-	@ConversationControl(ConversationAttributeType.MANDATORY)
+	@ConversationAttribute(ConversationAttributeType.MANDATORY)
 	public String mandatoryAction() {
 		return SUCCESS;
 	}

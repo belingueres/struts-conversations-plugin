@@ -13,7 +13,7 @@ import com.hexaid.struts2.common.ConversationAttributeType;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.METHOD })
-public @interface ConversationControl {
+public @interface ConversationAttribute {
 	
 	/**
 	 * Attribute type declared in ConversationAttributeType which states
