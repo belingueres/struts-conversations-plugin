@@ -152,30 +152,35 @@ public class ConversationInterceptor extends AbstractInterceptor {
 				// it when it just begins (because no conversationId parameter is present)
 				request.setAttribute(Conversation.CURRENT_CONVERSATION_KEY, conversation);
 				
-				if (action instanceof ValidationAware && conversation != null) {
-					// set action messages inside the conversation, if any, but ONLY
-					// if the conversation is NOT ended, meaning that after ending the
-					// conversation it can not longer CHANGE its contents (which is 
-					// very sound too)
-					invocation.addPreResultListener(new PreResultListener() {
-						@Override
-						public void beforeResult(ActionInvocation invocation, String resultCode) {
-							saveActionMessages((ValidationAware) action, conversation);
-						}
-					});
-				}
-				
-				// Invoke the next interceptor in the interceptor stack.
-				final String result = invocation.invoke();
-		
-				// After action invocation
-				if (conversation != null) {
-					conversation.setNew(false);
+                invocation.addPreResultListener(new PreResultListener() {
+                    @Override
+                    public void beforeResult(ActionInvocation invocation, String resultCode) {
+                        if (conversation != null) {
+                            if (action instanceof ValidationAware) {
+                                // set action messages inside the conversation, if any, but ONLY
+                                // if the conversation is NOT ended, meaning that after ending
+                                // the conversation it can not longer CHANGE its contents (which is
+                                // very sound too)
+                                saveActionMessages((ValidationAware) action, conversation);
+                            }
 
-					endConversation(actionMethod, conversation, result);
-				}
-		
-				return result;
+                            // After action invocation
+                            conversation.setNew(false);
+
+                            try {
+                                endConversation(actionMethod, conversation, resultCode);
+                            }
+                            catch (RuntimeException e) {
+                                // erases the result code returned by the action
+                                invocation.setResultCode(null);
+                                throw e;
+                            }
+                        }
+                    }
+                });
+        
+				// Invoke the next interceptor in the interceptor stack.
+				return invocation.invoke();
 			}
 			catch(Exception e) {
 				persistenceTransactionManager.exceptionThrown(conversation, e);
