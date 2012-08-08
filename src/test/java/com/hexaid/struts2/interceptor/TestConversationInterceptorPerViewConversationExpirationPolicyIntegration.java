@@ -1,12 +1,6 @@
 package com.hexaid.struts2.interceptor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.Map;
+import static org.junit.Assert.*;
 
 import javax.servlet.ServletContextEvent;
 
@@ -17,7 +11,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import com.hexaid.struts2.conversations.Conversation;
 import com.hexaid.struts2.junit.Config;
-import com.hexaid.struts2.junit.StrutsBaseTestCase;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -26,7 +19,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @Config(file={"struts-plugin.xml", "struts-perviewexpiration.xml"})
 public class TestConversationInterceptorPerViewConversationExpirationPolicyIntegration
-		extends StrutsBaseTestCase {
+		extends ConversationBaseTestCase {
 	
 	/**
 	 * Test that the conversation timeout is modified in the Dispatch result type
@@ -367,11 +360,6 @@ public class TestConversationInterceptorPerViewConversationExpirationPolicyInteg
 			e.printStackTrace();
 			fail("The action execution failed");
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private Map<String, Conversation> getAllConversationsMap() {
-		return (Map<String, Conversation>) session.getAttribute(Conversation.CONVERSATIONS_MAP_KEY);
 	}
 
 }

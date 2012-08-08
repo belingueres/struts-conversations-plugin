@@ -2,15 +2,12 @@ package com.hexaid.struts2.interceptor;
 
 import static org.junit.Assert.*;
 
-import java.util.Map;
-
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import com.hexaid.struts2.conversations.Conversation;
 import com.hexaid.struts2.junit.Config;
-import com.hexaid.struts2.junit.StrutsBaseTestCase;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -19,7 +16,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @Config(file={"struts-plugin.xml", "struts-forebackexpiration.xml"})
 public class TestConversationInterceptorForeBackConversationExpirationPolicyIntegration
-		extends StrutsBaseTestCase {
+		extends ConversationBaseTestCase {
 
 	/**
 	 * Test access an expired conversation
@@ -261,12 +258,6 @@ public class TestConversationInterceptorForeBackConversationExpirationPolicyInte
 			e.printStackTrace();
 			fail("The action execution failed");
 		}
-	}
-
-
-	@SuppressWarnings("unchecked")
-	private Map<String, Conversation> getAllConversationsMap() {
-		return (Map<String, Conversation>) session.getAttribute(Conversation.CONVERSATIONS_MAP_KEY);
 	}
 
 }
