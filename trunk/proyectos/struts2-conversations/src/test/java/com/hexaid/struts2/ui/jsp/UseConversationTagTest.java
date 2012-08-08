@@ -75,7 +75,7 @@ public class UseConversationTagTest {
 		HashMap<String, Conversation> conversationsMap = new HashMap<String, Conversation>();
 		conversationsMap.put(conversationId, conversation);
 		
-		session.putValue(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
+		session.setAttribute(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
 
 		request.addParameter(Conversation.CONVERSATION_ID_PARAM, conversationId);
 		
@@ -113,7 +113,7 @@ public class UseConversationTagTest {
 		HashMap<String, Conversation> conversationsMap = new HashMap<String, Conversation>();
 		conversationsMap.put(conversationId, conversation);
 		
-		session.putValue(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
+		session.setAttribute(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
 
 		//NO PARAMETER request.addParameter(Conversation.CONVERSATION_ID_PARAM, conversationId);
 
@@ -151,7 +151,7 @@ public class UseConversationTagTest {
 		HashMap<String, Conversation> conversationsMap = new HashMap<String, Conversation>();
 		conversationsMap.put(conversationId, conversation);
 		
-		session.putValue(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
+		session.setAttribute(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
 
 		//NO PARAMETER request.addParameter(Conversation.CONVERSATION_ID_PARAM, conversationId);
 		
@@ -180,7 +180,7 @@ public class UseConversationTagTest {
 	public void testDoTagConversationNotExists() {
 		HashMap<String, Conversation> conversationsMap = new HashMap<String, Conversation>();
 
-		session.putValue(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
+		session.setAttribute(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
 
 		// any conversation id
 		request.addParameter(Conversation.CONVERSATION_ID_PARAM, "blabla");
@@ -213,7 +213,7 @@ public class UseConversationTagTest {
 	public void testDoTagConversationNotExistsNoParam() {
 		HashMap<String, Conversation> conversationsMap = new HashMap<String, Conversation>();
 
-		session.putValue(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
+		session.setAttribute(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
 
 		// NO conversation id
 		// request.addParameter(Conversation.CONVERSATION_ID_PARAM, "blabla");
@@ -258,7 +258,7 @@ public class UseConversationTagTest {
 		HashMap<String, Conversation> conversationsMap = new HashMap<String, Conversation>();
 		conversationsMap.put(conversationId, conversation);
 		
-		session.putValue(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
+		session.setAttribute(Conversation.CONVERSATIONS_MAP_KEY, conversationsMap);
 
 		// conversation id
 		request.addParameter(Conversation.CONVERSATION_ID_PARAM, conversationId);
