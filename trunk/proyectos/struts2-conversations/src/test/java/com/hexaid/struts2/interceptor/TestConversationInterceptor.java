@@ -11,13 +11,12 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import com.hexaid.struts2.conversations.Conversation;
 import com.hexaid.struts2.conversations.impl.ActionMessages;
 import com.hexaid.struts2.junit.Config;
-import com.hexaid.struts2.junit.StrutsBaseTestCase;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.PreResultListener;
 
 @Config(file={"struts-plugin.xml", "struts-conversations.xml"})
-public class TestConversationInterceptor extends StrutsBaseTestCase {
+public class TestConversationInterceptor extends ConversationBaseTestCase {
 	
 	/**
 	 * Tests that non conversation-aware actions are at least reached and executed
@@ -509,8 +508,4 @@ public class TestConversationInterceptor extends StrutsBaseTestCase {
 		actionProxy.execute();
 	}
 
-	@SuppressWarnings("unchecked")
-	private Map<String, Conversation> getAllConversationsMap() {
-		return (Map<String, Conversation>) session.getAttribute(Conversation.CONVERSATIONS_MAP_KEY);
-	}
 }
