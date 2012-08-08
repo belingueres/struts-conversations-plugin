@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+<struts>
+  <!-- for test only -->
+  <bean type="com.hexaid.struts2.persistence.PersistenceTransactionManager" name="test-ptm"
+    class="com.hexaid.struts2.interceptor.TestPersistenceTransactionManager" />
+  
+  <package name="testpkg" extends="conversationPackage">
+
+    <interceptors>
+      <interceptor-stack name="testConversationStack">
+        <interceptor-ref name="abstractConversationSupportStack">
+          <!--
+          <param name="exception.logEnabled">true</param>
+          <param name="exception.logLevel">ERROR</param>
+          <param name="exception.logCategory">com.hexaid</param>
+          -->
+          <param name="conversation.persistence">test-ptm</param>
+        </interceptor-ref>
+      </interceptor-stack>
+    </interceptors>
+    
+    <default-interceptor-ref name="testConversationStack" />
+
+    <global-results>
+      <result name="exception">/exception.jsp</result>
+      <result name="conversation_not_found">conversation_not_fount.jsp</result>
+    </global-results>
+    
+    <global-exception-mappings>
+      <exception-mapping exception="java.lang.Exception" result="exception" />
+    </global-exception-mappings>
+    
+    <action name="testWithBeginAnnotation" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation">
+      <result name="success">/x.jsp</result>
+    </action>
+
+    <action name="endActionWithMessage" class="com.hexaid.struts2.interceptor.TestActionWithBeginAnnotation"
+      method="endActionWithMessage">
+      <result name="success">/x.jsp</result>
+    </action>
+  </package>
+</struts>
