@@ -16,9 +16,8 @@
   <inceptionYear>2011</inceptionYear>
 
   <scm>
-    <connection>
-      https://svn.origo.ethz.ch/tesina-conversations/trunk/proyectos/struts2-conversations
-    </connection>
+    <connection>scm:svn:https://riouxsvn.com/svn/conversations/trunk/proyectos/struts2-conversations</connection>
+    <developerConnection>scm:svn:https://riouxsvn.com/svn/conversations/trunk/proyectos/struts2-conversations</developerConnection>
   </scm>
 
   <properties>
