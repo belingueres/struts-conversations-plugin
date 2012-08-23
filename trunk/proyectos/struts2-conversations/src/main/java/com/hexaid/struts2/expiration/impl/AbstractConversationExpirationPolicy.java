@@ -32,7 +32,7 @@ public abstract class AbstractConversationExpirationPolicy implements
 	protected AbstractConversationExpirationPolicy(final String maxInactiveIntervalStr) {
 		this.maxInactiveInterval = Integer.parseInt(maxInactiveIntervalStr);
 		LOG.info("maxInactiveInterval : {} seconds ({} minutes)",
-				maxInactiveInterval, (int) (maxInactiveInterval / 60));
+				maxInactiveInterval, (maxInactiveInterval / 60));
 	}
 
 	@Override
