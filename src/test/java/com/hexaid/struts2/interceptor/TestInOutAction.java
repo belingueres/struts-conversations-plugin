@@ -8,7 +8,6 @@ public class TestInOutAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 	
-	@SuppressWarnings("unused")
 	@In @Out
 	private String msg;
 	

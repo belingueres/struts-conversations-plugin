@@ -389,7 +389,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	@Test(expected=IllegalArgumentException.class)
 	public void testInterceptActionWithRequiredInFieldButIsNull() throws Exception {
 		Object action = new Object() {
-			@SuppressWarnings("unused")
 			@In(required=true, scope=ScopeType.REQUEST)
 			private Integer n;
 		};
@@ -443,7 +442,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	@Test(expected=IllegalArgumentException.class)
 	public void testInterceptActionWithRequiredInMethodButIsNull() throws Exception {
 		Object action = new Object() {
-			@SuppressWarnings("unused")
 			@In(required=true, scope=ScopeType.REQUEST)
 			public void setData(Integer n) {
 				// nothing
@@ -464,7 +462,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	@Test(expected=IllegalArgumentException.class)
 	public void testInterceptActionWithRequiredOutFieldButIsNull() throws Exception {
 		Object action = new Object() {
-			@SuppressWarnings("unused")
 			@Out(required=true, scope=ScopeType.REQUEST)
 			private Integer n;
 		};
@@ -483,7 +480,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	@Test(expected=IllegalArgumentException.class)
 	public void testInterceptActionWithRequiredOutMethodButIsNull() throws Exception {
 		Object action = new Object() {
-			@SuppressWarnings("unused")
 			@Out(required=true, scope=ScopeType.REQUEST)
 			public Integer getData() {
 				return null;
@@ -737,7 +733,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		@In(scope=ScopeType.SESSION)
 		private Integer n;
 		
-		@SuppressWarnings("unused")
 		@Out(scope=ScopeType.SESSION)
 		private String msg;
 	}
@@ -746,7 +741,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		@In
 		private Integer n;
 		
-		@SuppressWarnings("unused")
 		@Out
 		private String msg;
 	}
@@ -755,7 +749,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		@In
 		protected Integer nSuper;
 		
-		@SuppressWarnings("unused")
 		@Out
 		protected String msgSuper;
 	}
@@ -764,7 +757,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		@In
 		private Integer nSuper;
 		
-		@SuppressWarnings("unused")
 		@Out
 		private String msgSuper;
 
@@ -781,7 +773,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		@In
 		private Integer n;
 		
-		@SuppressWarnings("unused")
 		@Out
 		private String msg;
 	}
@@ -790,7 +781,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		@In
 		private Integer n;
 		
-		@SuppressWarnings("unused")
 		@Out
 		private String msg;
 	}
@@ -805,7 +795,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		public void setN(Integer n) {
 			this.n = n;
 		}
-		@SuppressWarnings("unused")
 		@Out(scope=ScopeType.SESSION)
 		public String getMsg() {
 			return msg;
@@ -831,13 +820,11 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	private static class TestActionWithPrivateMethods {
 		private Integer privateProperty;
 
-		@SuppressWarnings("unused")
 		@Out(scope=ScopeType.REQUEST)
 		private Integer getPrivateProperty() {
 			return 18 + privateProperty;
 		}
 
-		@SuppressWarnings("unused")
 		@In(scope=ScopeType.REQUEST)
 		private void setPrivateProperty(Integer privateProperty) {
 			this.privateProperty = privateProperty;
@@ -846,7 +833,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	
 	private static class TestActionWithWrongInMethodNames {
 
-		@SuppressWarnings("unused")
 		@In(scope=ScopeType.REQUEST)
 		public void __not_a_setter(Integer n) {
 		}
@@ -855,7 +841,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 
 	private static class TestActionWithWrongOutMethodNames {
 
-		@SuppressWarnings("unused")
 		@Out(scope=ScopeType.REQUEST)
 		public Integer __not_a_getter__() {
 			return null;
@@ -874,7 +859,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 			return n2;
 		}
 
-		@SuppressWarnings("unused")
 		@In(value="method-in", scope=ScopeType.REQUEST)
 		public void setN2(Integer n2) {
 			this.n2 = n2;
@@ -887,7 +871,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	}
 
 	private static class TestActionRequiredFieldOut {
-		@SuppressWarnings("unused")
 		@Out(required=true, scope=ScopeType.REQUEST)
 		private Integer n = 5;
 	}
@@ -899,7 +882,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 			return data;
 		}
 
-		@SuppressWarnings("unused")
 		@In(required=true, scope=ScopeType.REQUEST)
 		public void setData(Integer data) {
 			this.data = data;
@@ -909,7 +891,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	private static class TestActionRequiredMethodOut {
 		private Integer data = 5;
 
-		@SuppressWarnings("unused")
 		@Out(required=true, scope=ScopeType.REQUEST)
 		public Integer getData() {
 			return data;
@@ -928,7 +909,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 
 	private static class TestActionFieldWithCreateFail {
 		// File doesn't have a no-arg constructor
-		@SuppressWarnings("unused")
 		@In(create=true)
 		private File file;
 	}
@@ -940,7 +920,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 			return data;
 		}
 
-		@SuppressWarnings("unused")
 		@In(create=true)
 		public void setData(String data) {
 			this.data = data;
@@ -955,7 +934,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 			return file;
 		}
 
-		@SuppressWarnings("unused")
 		@In(create=true)
 		public void setFile(File file) {
 			this.file = file;
@@ -981,7 +959,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		public HttpServletRequest getRequest() {
 			return request;
 		}
-		@SuppressWarnings("unused")
 		@In
 		public void setRequest(HttpServletRequest request) {
 			this.request = request;
@@ -989,7 +966,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		public Conversation getConversation() {
 			return conversation;
 		}
-		@SuppressWarnings("unused")
 		@In
 		public void setConversation(Conversation conversation) {
 			this.conversation = conversation;
@@ -997,7 +973,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		public HttpSession getSession() {
 			return session;
 		}
-		@SuppressWarnings("unused")
 		@In
 		public void setSession(HttpSession session) {
 			this.session = session;
@@ -1005,7 +980,6 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 		public ServletContext getContext() {
 			return context;
 		}
-		@SuppressWarnings("unused")
 		@In
 		public void setContext(ServletContext context) {
 			this.context = context;
@@ -1018,11 +992,9 @@ public class TestBijectionInterceptor extends StrutsJUnit4TestCase {
 	}
 	
 	private static class TestActionWithCookieOut {
-		@SuppressWarnings("unused")
 		@Out(scope=ScopeType.COOKIE)
 		private Cookie mycookie;
 		
-		@SuppressWarnings("unused")
 		@Out(scope=ScopeType.COOKIE)
 		private String mycookieValue;
 	}
