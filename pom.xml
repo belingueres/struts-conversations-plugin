@@ -4,7 +4,7 @@
   <groupId>com.hexaid.struts2.conversations</groupId>
   <artifactId>struts2-conversations</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>struts2-conversations</name>
   <url>http://maven.apache.org</url>
   <description>Plugin de Struts 2 para utilizar conversaciones</description>
